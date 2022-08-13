@@ -34,7 +34,7 @@ class UserController extends Controller
                 ->get();
             });
             $page = $request->page;
-            $perPage = 10;
+            $perPage = 20;
             
             $users = new LengthAwarePaginator(
                 $users->forPage($page, $perPage), $users->count(), $perPage, $page
