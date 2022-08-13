@@ -71,6 +71,9 @@
                                 </tbody>
                             </table>
                             {{ $users->appends(request()->input())->links() }} 
+                            @else 
+                                <h2>No user found!</h2>
+                                <h5>Please select Birth Year or Birth Month by (1900 - 2022)</h5>
                             @endif
 
                         </div>
@@ -88,7 +91,9 @@
             format: "yyyy",
             viewMode: "years", 
             minViewMode: "years",
-            autoclose:true //to close picker once year is selected
+            autoclose:true, //to close picker once year is selected
+            startDate: '-122y', //2021 -1950
+            endDate: 'y' //2021-2011
         });
 
         $('#birth_month').datepicker({

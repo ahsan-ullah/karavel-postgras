@@ -18,8 +18,8 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $key = "";
-        $key .= $request->has('birth_year') ? '-year-'.$request->input('birth_year') : '';
-        $key .= $request->has('birth_month') ? '-month-'.$request->input('birth_month') : '';
+        $key .= $request->input('birth_year') ? '-year-'.$request->input('birth_year') : '';
+        $key .= $request->input('birth_month') ? '-month-'.$request->input('birth_month') : '';
         $users = [];
         if (isset($request->birth_year) || isset($request->birth_month)) {
             $users = Cache::remember('users' . $key, 60, function() use($request) {
@@ -29,7 +29,7 @@ class UserController extends Controller
                     }
                     if (isset($request->birth_month)) {
                         $query->whereMonth('birth_date', $request->birth_month);
-                    }                             
+                    }                           
                 })       
                 ->get();
             });

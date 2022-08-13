@@ -4,10 +4,11 @@
 - PHP 8.0 or higher.
 - Postgresql Database
 - Redis server for storing the cache
-## I used the following
+## I have used the following
 - Laravel 9.19 (Framework)
 - Redis for cache
 - Postgresql Database 
+- Laravel Debuger
 # How to Setup / Install
 1. Pull the repository form 
 https://github.com/ahsan-ullah/laravel-postgras.git
@@ -33,7 +34,7 @@ https://github.com/ahsan-ullah/laravel-postgras.git
 
 > php artisan serve
 
-- If you want to query execution time then change .env by 
+- If you want to see query execution time then change .env by 
     - APP_DEBUG=true
 ## License
 
