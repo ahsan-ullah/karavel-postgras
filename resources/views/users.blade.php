@@ -41,13 +41,15 @@
                             
                             </form>
                             <hr>
-                            {{ $users->appends(request()->input())->links() }} 
-                            <table class="table table table-striped">
+                            @if($users)
+                            {{ $users->appends(request()->input())->links() }}
+                            <table class="table table table-bordered">
                                 <thead>
                                     <tr>
+                                       
+                                        <th>Email</th>
                                         <th>ID</th>
-                                        <th>Email Address</th>
-                                        <th>Name</th>
+                                        <th>Full Name</th>
                                         <th>Birthday</th>                                        
                                         <th>Phone </th>
                                         <th>IP Address</th>
@@ -56,19 +58,21 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($users as $key => $user)                                    
-                                        <tr>
-                                            <td style="text-align: left">{{ $user->id }}</td>
-                                            <td style="text-align: left">{{ $user->email }}</td>
-                                            <td style="text-align: left">{{ $user->name }}</td>
-                                            <td style="text-align: left">{{ $user->birth_date }}</td>
-                                            <td style="text-align: left">{{ $user->phone }}</td>
-                                            <td style="text-align: left">{{ $user->ip_address }}</td>
+                                        <tr>                                            
+                                            <td nowrap style="text-align: left">{{ $user->email }}</td>
+                                            <td style="text-align: center">{{ $user->id }}</td>
+                                            <td nowrap style="text-align: left">{{ $user->name }}</td>
+                                            <td  nowrap style="text-align: center">{{ $user->birth_date }}</td>
+                                            <td nowrap style="text-align: center">{{ $user->phone }}</td>
+                                            <td nowrap style="text-align: center">{{ $user->ip_address }}</td>
                                             <td style="text-align: left">{{ $user->country }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                             {{ $users->appends(request()->input())->links() }} 
+                            @endif
+
                         </div>
                       </div>
                 </div>
