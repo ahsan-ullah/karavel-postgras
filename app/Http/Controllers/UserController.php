@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
-
+use Illuminate\Support\Facades\Cache;
 class UserController extends Controller
 {
     /**
@@ -13,9 +12,28 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users =  User::paginate(10);
+        $page = $request->has('page') ? $request->input('page') : 1;
+        $key = 'page-'.$page;
+        $key .= $request->has('birth_year') ? '-year-'.$request->input('birth_year') : '';
+        $key .= $request->has('birth_month') ? '-month-'.$request->input('birth_month') : '';
+        $users = Cache::remember('users-' . $key, 60, function(){
+            $whereClause = request()->all();
+            unset($whereClause['page']);
+            // $birth_month = [];
+            // if ($whereClause['birth_month']) {
+            //     $birth_month = ['birth_date' => $whereClause['birth_month']];
+            // }
+            // $birth_year = [];
+            // if ($whereClause['birth_year']) {
+            //     $birth_year = ['birth_date' => $whereClause['birth_year']];
+            // }
+            return User::whereYear('birth_date', 2000)
+            // ->whereMonth($birth_month)
+            ->paginate(10);
+        });
+
         return view('users', compact('users'));
     }
 
