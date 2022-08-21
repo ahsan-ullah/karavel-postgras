@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Mail\orderConfirmationMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -42,5 +44,17 @@ class UserController extends Controller
             $users->withPath('/users');            
         }                       
         return view('users', compact('users'));
+    }
+
+    public function sendingEmail(Request $request)
+    {
+        $details = [
+            'title' => 'Mail from ItSolutionStuff.com',
+            'body' => 'This is for testing email using smtp'
+        ];
+       
+        Mail::to('ahsanullah716@gmail.com')->send(new orderConfirmationMail($details));
+       
+        dd("Email is Sent.");
     }
 }
