@@ -32,7 +32,7 @@ class UserController extends Controller
                     if (isset($request->birth_month)) {
                         $query->whereMonth('birth_date', $request->birth_month);
                     }                           
-                })       
+                })
                 ->get();
             });
             $page = $request->page;
